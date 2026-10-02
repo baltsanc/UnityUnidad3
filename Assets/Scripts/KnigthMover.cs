@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class KnigthMover : MonoBehaviour
 {
+    public GameObject SwordThrowPrefab;
     public float Speed;
     public float JumpForce;
 
@@ -21,6 +22,7 @@ public class KnigthMover : MonoBehaviour
     void Update()
     {
         Horizontal = Input.GetAxisRaw("Horizontal");
+        
         if (Horizontal < 0.0f) transform.localScale = new Vector3(-1.0f, 1.0f, 1.0f);
         else if (Horizontal > 0.0f) transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
 
@@ -39,7 +41,12 @@ public class KnigthMover : MonoBehaviour
             Jump();
         }
 
-        Debug.Log("Grounded: " + Grounded);
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Shoot();
+        }
+
+        //Debug.Log("Grounded: " + Grounded);
     }
 
     private void Jump()
@@ -47,8 +54,20 @@ public class KnigthMover : MonoBehaviour
         Rigidbody2D.AddForce(Vector2.up * JumpForce);
     }
 
+    private void Shoot()
+    {
+        Vector3 direction;
+
+        if (transform.localScale.x == 1.0f) direction = Vector3.right;
+        else direction = Vector3.left;
+
+        GameObject SwordThrow = Instantiate(SwordThrowPrefab, transform.position + direction * 0.4f, Quaternion.identity);
+        SwordThrow.GetComponent<SwordThrow>().SetDirection(direction);
+    }
+
     private void FixedUpdate()
     {
         Rigidbody2D.linearVelocity = new Vector2(Horizontal, Rigidbody2D.linearVelocity.y);
     }
+
 }
