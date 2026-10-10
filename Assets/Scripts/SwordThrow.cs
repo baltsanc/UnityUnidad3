@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class SwordThrow : MonoBehaviour
 {
-//Revisar la cantidad sobre tiempo
 
     public float Speed;
     private Rigidbody2D Rigidbody2D;
