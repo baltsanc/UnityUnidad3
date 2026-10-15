@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//Agregar bloque
 
 public class SwordThrow : MonoBehaviour
 {
